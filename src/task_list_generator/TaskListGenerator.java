@@ -19,8 +19,14 @@ public class TaskListGenerator {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		initializeConfig();
-		File taskListFolder = new File(AppConfig.OUTPUT_PATH.value());
 		LocalDate currentDate = LocalDate.now();
+		String month = currentDate.getMonth().toString().substring(0, 1) + currentDate.getMonth().toString().substring(1).toLowerCase();
+		String year = currentDate.getYear()+ "/";
+		System.out.println(month);
+		File taskListFolder = new File(AppConfig.OUTPUT_PATH.value() + year + month + "/");
+		if(!taskListFolder.exists()){
+			taskListFolder.mkdirs();
+		}
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		String date = currentDate.format(formatter);
 		File taskList = new File(taskListFolder.getAbsolutePath() + "/" +date.replaceAll("/","-") + ".txt");
